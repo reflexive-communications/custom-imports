@@ -165,19 +165,31 @@ function custom_imports_civicrm_themes(&$themes)
 //
 //}
 
+// The following hooks are implemented by me.
 /**
  * Implements hook_civicrm_navigationMenu().
  *
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_navigationMenu
  */
-//function custom_imports_civicrm_navigationMenu(&$menu) {
-//  _custom_imports_civix_insert_navigation_menu($menu, 'Mailings', [
-//    'label' => E::ts('New subliminal message'),
-//    'name' => 'mailing_subliminal_message',
-//    'url' => 'civicrm/mailing/subliminal',
-//    'permission' => 'access CiviMail',
-//    'operator' => 'OR',
-//    'separator' => 0,
-//  ]);
-//  _custom_imports_civix_navigationMenu($menu);
-//}
+function custom_imports_civicrm_navigationMenu(&$menu)
+{
+    // Add the parent menu first.
+    _custom_imports_civix_insert_navigation_menu($menu, 'Contributions', [
+        'label' => E::ts('Custom Importers'),
+        'name' => 'custom_importers',
+        'url' => null,
+        'permission' => 'access CiviContribute,edit contributions',
+        'operator' => 'and',
+        'separator' => 0,
+    ]);
+    // the state machines
+    _custom_imports_civix_insert_navigation_menu($menu, 'Contributions/custom_importers', [
+        'label' => E::ts('Custom Field Contact Mapping'),
+        'name' => 'custom_field_based',
+        'url' => 'civicrm/contribute/custom-field-import',
+        'permission' => 'access CiviContribute,edit contributions',
+        'operator' => 'and',
+        'separator' => 0,
+    ]);
+    _custom_imports_civix_navigationMenu($menu);
+}
