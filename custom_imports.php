@@ -3,6 +3,7 @@
 require_once 'custom_imports.civix.php';
 // phpcs:disable
 use CRM_CustomImports_ExtensionUtil as E;
+
 // phpcs:enable
 
 /**
@@ -10,8 +11,9 @@ use CRM_CustomImports_ExtensionUtil as E;
  *
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_config/
  */
-function custom_imports_civicrm_config(&$config) {
-  _custom_imports_civix_civicrm_config($config);
+function custom_imports_civicrm_config(&$config)
+{
+    _custom_imports_civix_civicrm_config($config);
 }
 
 /**
@@ -19,8 +21,9 @@ function custom_imports_civicrm_config(&$config) {
  *
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_xmlMenu
  */
-function custom_imports_civicrm_xmlMenu(&$files) {
-  _custom_imports_civix_civicrm_xmlMenu($files);
+function custom_imports_civicrm_xmlMenu(&$files)
+{
+    _custom_imports_civix_civicrm_xmlMenu($files);
 }
 
 /**
@@ -28,8 +31,9 @@ function custom_imports_civicrm_xmlMenu(&$files) {
  *
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_install
  */
-function custom_imports_civicrm_install() {
-  _custom_imports_civix_civicrm_install();
+function custom_imports_civicrm_install()
+{
+    _custom_imports_civix_civicrm_install();
 }
 
 /**
@@ -37,8 +41,9 @@ function custom_imports_civicrm_install() {
  *
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_postInstall
  */
-function custom_imports_civicrm_postInstall() {
-  _custom_imports_civix_civicrm_postInstall();
+function custom_imports_civicrm_postInstall()
+{
+    _custom_imports_civix_civicrm_postInstall();
 }
 
 /**
@@ -46,8 +51,9 @@ function custom_imports_civicrm_postInstall() {
  *
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_uninstall
  */
-function custom_imports_civicrm_uninstall() {
-  _custom_imports_civix_civicrm_uninstall();
+function custom_imports_civicrm_uninstall()
+{
+    _custom_imports_civix_civicrm_uninstall();
 }
 
 /**
@@ -55,8 +61,9 @@ function custom_imports_civicrm_uninstall() {
  *
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_enable
  */
-function custom_imports_civicrm_enable() {
-  _custom_imports_civix_civicrm_enable();
+function custom_imports_civicrm_enable()
+{
+    _custom_imports_civix_civicrm_enable();
 }
 
 /**
@@ -64,8 +71,9 @@ function custom_imports_civicrm_enable() {
  *
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_disable
  */
-function custom_imports_civicrm_disable() {
-  _custom_imports_civix_civicrm_disable();
+function custom_imports_civicrm_disable()
+{
+    _custom_imports_civix_civicrm_disable();
 }
 
 /**
@@ -73,8 +81,9 @@ function custom_imports_civicrm_disable() {
  *
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_upgrade
  */
-function custom_imports_civicrm_upgrade($op, CRM_Queue_Queue $queue = NULL) {
-  return _custom_imports_civix_civicrm_upgrade($op, $queue);
+function custom_imports_civicrm_upgrade($op, CRM_Queue_Queue $queue = null)
+{
+    return _custom_imports_civix_civicrm_upgrade($op, $queue);
 }
 
 /**
@@ -85,8 +94,9 @@ function custom_imports_civicrm_upgrade($op, CRM_Queue_Queue $queue = NULL) {
  *
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_managed
  */
-function custom_imports_civicrm_managed(&$entities) {
-  _custom_imports_civix_civicrm_managed($entities);
+function custom_imports_civicrm_managed(&$entities)
+{
+    _custom_imports_civix_civicrm_managed($entities);
 }
 
 /**
@@ -96,8 +106,9 @@ function custom_imports_civicrm_managed(&$entities) {
  *
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_caseTypes
  */
-function custom_imports_civicrm_caseTypes(&$caseTypes) {
-  _custom_imports_civix_civicrm_caseTypes($caseTypes);
+function custom_imports_civicrm_caseTypes(&$caseTypes)
+{
+    _custom_imports_civix_civicrm_caseTypes($caseTypes);
 }
 
 /**
@@ -107,9 +118,10 @@ function custom_imports_civicrm_caseTypes(&$caseTypes) {
  *
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_angularModules
  */
-function custom_imports_civicrm_angularModules(&$angularModules) {
-  // Auto-add module files from ./ang/*.ang.php
-  _custom_imports_civix_civicrm_angularModules($angularModules);
+function custom_imports_civicrm_angularModules(&$angularModules)
+{
+    // Auto-add module files from ./ang/*.ang.php
+    _custom_imports_civix_civicrm_angularModules($angularModules);
 }
 
 /**
@@ -117,8 +129,9 @@ function custom_imports_civicrm_angularModules(&$angularModules) {
  *
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_alterSettingsFolders
  */
-function custom_imports_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) {
-  _custom_imports_civix_civicrm_alterSettingsFolders($metaDataFolders);
+function custom_imports_civicrm_alterSettingsFolders(&$metaDataFolders = null)
+{
+    _custom_imports_civix_civicrm_alterSettingsFolders($metaDataFolders);
 }
 
 /**
@@ -128,15 +141,17 @@ function custom_imports_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) {
  *
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_entityTypes
  */
-function custom_imports_civicrm_entityTypes(&$entityTypes) {
-  _custom_imports_civix_civicrm_entityTypes($entityTypes);
+function custom_imports_civicrm_entityTypes(&$entityTypes)
+{
+    _custom_imports_civix_civicrm_entityTypes($entityTypes);
 }
 
 /**
  * Implements hook_civicrm_themes().
  */
-function custom_imports_civicrm_themes(&$themes) {
-  _custom_imports_civix_civicrm_themes($themes);
+function custom_imports_civicrm_themes(&$themes)
+{
+    _custom_imports_civix_civicrm_themes($themes);
 }
 
 // --- Functions below this ship commented out. Uncomment as required. ---
