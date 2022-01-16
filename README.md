@@ -1,29 +1,15 @@
 # custom-imports
 
-![Screenshot](/images/screenshot.png)
+This extension provides custom importer application.
 
-(*FIXME: In one or two paragraphs, describe what the extension does and why one would download it. *)
+- Constribution import where the contact mapping is based on contact custom field.
 
 The extension is licensed under [AGPL-3.0](LICENSE.txt).
 
 ## Requirements
 
-* PHP v7.2+
-* CiviCRM (*FIXME: Version number*)
-
-## Installation (Web UI)
-
-Learn more about installing CiviCRM extensions in the [CiviCRM Sysadmin Guide](https://docs.civicrm.org/sysadmin/en/latest/customize/extensions/).
-
-## Installation (CLI, Zip)
-
-Sysadmins and developers may download the `.zip` file for this extension and
-install it with the command-line tool [cv](https://github.com/civicrm/cv).
-
-```bash
-cd <extension-dir>
-cv dl custom-imports@https://github.com/FIXME/custom-imports/archive/master.zip
-```
+* PHP v7.4+
+* CiviCRM v5.43
 
 ## Installation (CLI, Git)
 
@@ -32,13 +18,5 @@ install it with the command-line tool [cv](https://github.com/civicrm/cv).
 
 ```bash
 git clone https://github.com/FIXME/custom-imports.git
-cv en custom_imports
+cv ext:enable custom-imports
 ```
-
-## Getting Started
-
-(* FIXME: Where would a new user navigate to get started? What changes would they see? *)
-
-## Known Issues
-
-(* FIXME *)
