@@ -30,9 +30,8 @@ class CRM_CustomImports_Import_CustomField_Form_Preview extends CRM_Contribute_I
             if (isset($mapper[$key][0]) && $mapper[$key][0] == 'soft_credit' && isset($mapper[$key])) {
                 $mapperSoftCredit[$key] = $mapper[$key][1] ?? '';
                 $mapperSoftCreditType[$key] = $mapperSoftCreditType[$key]['value'];
-            }
-            else {
-                $mapperSoftCredit[$key] = $mapperSoftCreditType[$key] = NULL;
+            } else {
+                $mapperSoftCredit[$key] = $mapperSoftCreditType[$key] = null;
             }
         }
 
@@ -48,7 +47,9 @@ class CRM_CustomImports_Import_CustomField_Form_Preview extends CRM_Contribute_I
             }
             $mapperFields[] = implode(' - ', $header);
         }
-        $parser->run($fileName, $separator,
+        $parser->run(
+            $fileName,
+            $separator,
             $mapperFields,
             $skipColumnHeader,
             CRM_Import_Parser::MODE_IMPORT,
