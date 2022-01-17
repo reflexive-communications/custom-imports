@@ -79,6 +79,50 @@ class CRM_CustomImports_Import_CustomField_Parser extends CRM_Contribute_Import_
     }
 
     /**
+     * Handle the values in summary mode.
+     * Based on the legacy solution: https://github.com/civicrm/civicrm-core/blob/5db0bc3c1f54eaca4307f103a73bda596ae914d6/CRM/Contribute/Import/Parser/Contribution.php#L147-L180
+     * The duplication was necessary due to the custom field validation. See comment below.
+     *
+     * @param array $values
+     *   The array of values belonging to this line.
+     *
+     * @return bool
+     *   the result of this processing
+     */
+    public function summary(&$values)
+    {
+        $erroneousField = NULL;
+        $response = $this->setActiveFieldValues($values, $erroneousField);
+
+        $params = &$this->getActiveFieldParams();
+        $errorMessage = NULL;
+
+        //for date-Formats
+        $errorMessage = implode('; ', $this->formatDateFields($params));
+        //date-Format part ends
+
+        $params['contact_type'] = 'Contribution';
+
+        // The contact type has been set for contribution. With this hack, the
+        // isErrorInCustomData function gethers the custom fields for the contribution
+        // and validates that the custom fields in the params are connected to the
+        // contributions. If not, it raises an error.
+        $toUnset = CRM_CustomImports_Import_Service::extractCustomTextFields(array_keys($params));
+        unset($params[$toUnset[0]]);
+        //checking error in custom data
+        CRM_Contact_Import_Parser_Contact::isErrorInCustomData($params, $errorMessage);
+
+        if ($errorMessage) {
+            $tempMsg = "Invalid value for field(s) : $errorMessage";
+            array_unshift($values, $tempMsg);
+            $errorMessage = NULL;
+            return CRM_Import_Parser::ERROR;
+        }
+
+        return CRM_Import_Parser::VALID;
+    }
+
+    /**
      * Handle the values in import mode.
      * Based on the legacy solution: https://github.com/civicrm/civicrm-core/blob/5db0bc3c1f54eaca4307f103a73bda596ae914d6/CRM/Contribute/Import/Parser/Contribution.php#L182-L458
      *
