@@ -2,6 +2,7 @@
 
 /**
  * State machine for managing different states of the Import process.
+ * Based on the legacy solution: https://github.com/civicrm/civicrm-core/blob/409ffdf5d67e22566a7e9f6086900cc00b45a08d/CRM/Import/StateMachine.php
  */
 class CRM_CustomImports_Import_CustomField_StateMachine extends CRM_Core_StateMachine
 {

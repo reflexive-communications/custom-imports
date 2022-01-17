@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * State machine controller class.
+ * Based on the legacy solution: https://github.com/civicrm/civicrm-core/blob/409ffdf5d67e22566a7e9f6086900cc00b45a08d/CRM/Contribute/Import/Controller.php
+ */
 class CRM_CustomImports_Import_CustomField_Controller extends CRM_Core_Controller
 {
 
