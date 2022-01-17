@@ -304,6 +304,10 @@ class CRM_CustomImports_Import_CustomField_Parser extends CRM_Contribute_Import_
                 array_unshift($values, 'No matching Contact found for this row. The contribution was not imported');
                 return CRM_Import_Parser::ERROR;
             }
+            if ($contactIds[0]['contact_type'] != $this->_contactType) {
+                array_unshift($values, 'Mismatch on contact type. The contribution was not imported');
+                return CRM_Import_Parser::ERROR;
+            }
             $formatted['contact_id'] = $contactIds[0]['id'];
         }
         $newContribution = civicrm_api('contribution', 'create', $formatted);

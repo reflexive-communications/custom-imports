@@ -91,7 +91,7 @@ class CRM_CustomImports_Import_Service
         }
         $contacts = civicrm_api3('Contact', 'get', [
             'sequential' => 1,
-            'return' => ['id'],
+            'return' => ['id', 'contact_type'],
             $customField['name'] => $customField['value'],
         ]);
         return $contacts['values'];
