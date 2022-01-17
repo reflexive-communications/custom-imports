@@ -20,7 +20,7 @@ class CRM_CustomImports_Import_CustomField_Form_Preview extends CRM_Contribute_I
         $onDuplicate = $this->get('onDuplicate');
         $mapperSoftCreditType = $this->get('mapperSoftCreditType');
 
-        $mapper = $this->controller->exportValue('MapField', 'mapper');
+        $mapper = $this->controller->exportValue('ContactMap', 'mapper');
         $mapperKeys = [];
         $mapperSoftCredit = [];
         $mapperPhoneType = [];
