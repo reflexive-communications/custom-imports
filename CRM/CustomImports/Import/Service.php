@@ -67,4 +67,33 @@ class CRM_CustomImports_Import_Service
         }
         return $extracted;
     }
+    /**
+     * It gets an array as an input, extract the contact custom field, and maps it to contact ids.
+     *
+     * @param array $data
+     *
+     * @return array
+     */
+    public static function getContactsBasedOnCustomField(array $data): array
+    {
+        $contactCustomFields = self::mapCustomFieldsToSelectOptions(self::customTextFields());
+        $customField = [
+            'name' => '',
+            'value' => '',
+        ];
+        $inputKeys = array_keys($data);
+        foreach ($contactCustomFields as $k => $v) {
+            if (in_array($k, $inputKeys)) {
+                $customField['name'] = $k;
+                $customField['value'] = $data[$k];
+                break;
+            }
+        }
+        $contacts = civicrm_api3('Contact', 'get', [
+            'sequential' => 1,
+            'return' => ['id'],
+            $customField['name'] => $customField['value'],
+        ]);
+        return $contacts['values'];
+    }
 }
