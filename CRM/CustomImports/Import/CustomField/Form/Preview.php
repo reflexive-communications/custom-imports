@@ -37,7 +37,7 @@ class CRM_CustomImports_Import_CustomField_Form_Preview extends CRM_Contribute_I
         }
 
         // Replace the original parcer with the one implemented for the custom field contact mapping.
-        $parser = new CRM_Contribute_Import_Parser_Contribution($mapperKeys, $mapperSoftCredit, $mapperPhoneType, $mapperSoftCreditType);
+        $parser = new CRM_CustomImports_Import_CustomField_Parser($mapperKeys, $mapperSoftCredit, $mapperPhoneType, $mapperSoftCreditType);
 
         $mapFields = $this->get('fields');
 
