@@ -295,80 +295,16 @@ class CRM_CustomImports_Import_CustomField_Parser extends CRM_Contribute_Import_
         }
 
         if ($this->_contactIdIndex < 0) {
-            $error = $this->checkContactDuplicate($paramValues);
-
-            if (CRM_Core_Error::isAPIError($error, CRM_Core_ERROR::DUPLICATE_CONTACT)) {
-                $matchedIDs = explode(',', $error['error_message']['params'][0]);
-                if (count($matchedIDs) > 1) {
-                    array_unshift($values, 'Multiple matching contact records detected for this row. The contribution was not imported');
-                    return CRM_Import_Parser::ERROR;
-                }
-                $cid = $matchedIDs[0];
-                $formatted['contact_id'] = $cid;
-
-                $newContribution = civicrm_api('contribution', 'create', $formatted);
-                if (civicrm_error($newContribution)) {
-                    if (is_array($newContribution['error_message'])) {
-                        array_unshift($values, $newContribution['error_message']['message']);
-                        if ($newContribution['error_message']['params'][0]) {
-                            return CRM_Import_Parser::DUPLICATE;
-                        }
-                    } else {
-                        array_unshift($values, $newContribution['error_message']);
-                        return CRM_Import_Parser::ERROR;
-                    }
-                }
-
-                $this->_newContributions[] = $newContribution['id'];
-                $formatted['contribution_id'] = $newContribution['id'];
-
-                //return soft valid since we need to show how soft credits were added
-                if (!empty($formatted['soft_credit'])) {
-                    return CRM_Contribute_Import_Parser::SOFT_CREDIT;
-                }
-
-                // process pledge payment assoc w/ the contribution
-                return self::processPledgePayments($formatted);
-            }
-
-            // Using new Dedupe rule.
-            $ruleParams = [
-                'contact_type' => $this->_contactType,
-                'used' => 'Unsupervised',
-            ];
-            $fieldsArray = CRM_Dedupe_BAO_Rule::dedupeRuleFields($ruleParams);
-            $disp = null;
-            foreach ($fieldsArray as $value) {
-                if (array_key_exists(trim($value), $params)) {
-                    $paramValue = $params[trim($value)];
-                    if (is_array($paramValue)) {
-                        $disp .= $params[trim($value)][0][trim($value)] . " ";
-                    } else {
-                        $disp .= $params[trim($value)] . " ";
-                    }
-                }
-            }
-
-            if (!empty($params['external_identifier'])) {
-                if ($disp) {
-                    $disp .= "AND {$params['external_identifier']}";
-                } else {
-                    $disp = $params['external_identifier'];
-                }
-            }
-
-            array_unshift($values, 'No matching Contact found for (' . $disp . ')');
-            return CRM_Import_Parser::ERROR;
-        }
-
-        if (!empty($paramValues['external_identifier'])) {
-            $checkCid = new CRM_Contact_DAO_Contact();
-            $checkCid->external_identifier = $paramValues['external_identifier'];
-            $checkCid->find(true);
-            if ($checkCid->id != $formatted['contact_id']) {
-                array_unshift($values, 'Mismatch of External ID:' . $paramValues['external_identifier'] . ' and Contact Id:' . $formatted['contact_id']);
+            $contactIds = CRM_CustomImports_Import_Service::getContactsBasedOnCustomField($paramValues);
+            if (count($contactIds) > 1) {
+                array_unshift($values, 'Multiple matching contact records detected for this row. The contribution was not imported');
                 return CRM_Import_Parser::ERROR;
             }
+            if (count($contactIds) === 0) {
+                array_unshift($values, 'No matching Contact found for this row. The contribution was not imported');
+                return CRM_Import_Parser::ERROR;
+            }
+            $formatted['contact_id'] = $contactIds[0]['id'];
         }
         $newContribution = civicrm_api('contribution', 'create', $formatted);
         if (civicrm_error($newContribution)) {
