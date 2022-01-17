@@ -49,4 +49,22 @@ class CRM_CustomImports_Import_Service
         }
         return $options;
     }
+    /**
+     * It gets an array as input and extracts those that are custom text fields
+     *
+     * @param array $data
+     *
+     * @return array
+     */
+    public static function extractCustomTextFields(array $data): array
+    {
+        $contactCustomFields = self::mapCustomFieldsToSelectOptions(self::customTextFields());
+        $extracted = [];
+        foreach ($contactCustomFields as $k => $v) {
+            if (in_array($k, $data)) {
+                $extracted[] = $k;
+            }
+        }
+        return $extracted;
+    }
 }
