@@ -2,6 +2,10 @@
 
 class CRM_CustomImports_Import_CustomField_Form_ContactMap extends CRM_Contribute_Import_Form_MapField
 {
+    /*
+     * It removes the original contact map fields and then extends the list
+     * with the custom fields.
+     */
     public function preProcess()
     {
         parent::preProcess();
@@ -18,6 +22,8 @@ class CRM_CustomImports_Import_CustomField_Form_ContactMap extends CRM_Contribut
 
     /*
      * It returns the custom field options for the contact mapping.
+     * Only thise are relevants where the data type is Strings and
+     * the html type is Text.
      *
      * @return array
      */
@@ -45,9 +51,10 @@ class CRM_CustomImports_Import_CustomField_Form_ContactMap extends CRM_Contribut
     }
 
     /**
-     * Check if required fields are present.
+     * Check if required fields (amount and financial type) are present.
+     * Exactly one custom field must be set for the contact mapping.
      *
-     * @param CRM_Contribute_Import_Form_MapField $self
+     * @param CRM_CustomImports_Import_CustomField_Form_ContactMap $self
      * @param array $importKeys
      * @param array $errors
      *
@@ -83,6 +90,8 @@ class CRM_CustomImports_Import_CustomField_Form_ContactMap extends CRM_Contribut
 
     /**
      * Global validation rules for the form.
+     * Based on the legacy solution: https://github.com/civicrm/civicrm-core/blob/5db0bc3c1f54eaca4307f103a73bda596ae914d6/CRM/Contribute/Import/Form/MapField.php#L311-L411
+     * The email based deduplication related functionality has been removed, as this import does not expect emails as mapping parameters.
      *
      * @param array $fields
      *   Posted values of the form.
@@ -109,10 +118,6 @@ class CRM_CustomImports_Import_CustomField_Form_ContactMap extends CRM_Contribut
                 CRM_Import_Parser::CONTACT_INDIVIDUAL => 'Individual',
                 CRM_Import_Parser::CONTACT_HOUSEHOLD => 'Household',
                 CRM_Import_Parser::CONTACT_ORGANIZATION => 'Organization',
-            ];
-            $params = [
-                'used' => 'Unsupervised',
-                'contact_type' => $contactTypes[$contactTypeId] ?? '',
             ];
             foreach ($importKeys as $key => $val) {
                 if ($val == "soft_credit") {
@@ -170,8 +175,10 @@ class CRM_CustomImports_Import_CustomField_Form_ContactMap extends CRM_Contribut
         }
         return true;
     }
+
     /**
      * If your form requires special validation, add one or more callbacks here
+     * In the legacy solution the rule was added in the buildQuickForm function.
      */
     public function addRules()
     {
@@ -183,6 +190,8 @@ class CRM_CustomImports_Import_CustomField_Form_ContactMap extends CRM_Contribut
 
     /**
      * Build the form object.
+     * Based on the legacy solution: https://github.com/civicrm/civicrm-core/blob/5db0bc3c1f54eaca4307f103a73bda596ae914d6/CRM/Contribute/Import/Form/MapField.php#L141-L309
+     * The duplication was necessary due to the legacy code sets the form validation rules in this function instead of the addRules.
      *
      * @throws \CiviCRM_API3_Exception
      */
