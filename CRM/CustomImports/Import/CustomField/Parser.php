@@ -3,6 +3,82 @@
 class CRM_CustomImports_Import_CustomField_Parser extends CRM_Contribute_Import_Parser_Contribution
 {
     /**
+     * The initializer code, called before the processing
+     * Based on the legacy solution: https://github.com/civicrm/civicrm-core/blob/5db0bc3c1f54eaca4307f103a73bda596ae914d6/CRM/Contribute/Import/Parser/Contribution.php#L54-L120
+     * The customization is necessary due to the fields are set here.
+     */
+    public function init()
+    {
+        $fields = CRM_Contribute_BAO_Contribution::importableFields($this->_contactType, FALSE);
+
+        $fields = array_merge($fields,
+            [
+                'soft_credit' => [
+                    'title' => ts('Soft Credit'),
+                    'softCredit' => TRUE,
+                    'headerPattern' => '/Soft Credit/i',
+                ],
+            ]
+        );
+
+        // add pledge fields only if its is enabled
+        if (CRM_Core_Permission::access('CiviPledge')) {
+            $pledgeFields = [
+                'pledge_payment' => [
+                    'title' => ts('Pledge Payment'),
+                    'headerPattern' => '/Pledge Payment/i',
+                ],
+                'pledge_id' => [
+                    'title' => ts('Pledge ID'),
+                    'headerPattern' => '/Pledge ID/i',
+                ],
+            ];
+
+            $fields = array_merge($fields, $pledgeFields);
+        }
+        // Unset the original contact map fields.
+        foreach (CRM_CustomImports_Import_Service::ORIGINAL_CONTACT_IDENTIFIERS as $mapField) {
+            unset($fields[$mapField]);
+        }
+        // Extend the fieldset with the custom fields.
+        $fields = array_merge($fields, CRM_CustomImports_Import_Service::customTextFields());
+        foreach ($fields as $name => $field) {
+            $field['type'] = CRM_Utils_Array::value('type', $field, CRM_Utils_Type::T_INT);
+            $field['dataPattern'] = CRM_Utils_Array::value('dataPattern', $field, '//');
+            $field['headerPattern'] = CRM_Utils_Array::value('headerPattern', $field, '//');
+            $this->addField($name, $field['title'], $field['type'], $field['headerPattern'], $field['dataPattern']);
+        }
+
+        $this->_newContributions = [];
+
+        $this->setActiveFields($this->_mapperKeys);
+        $this->setActiveFieldSoftCredit($this->_mapperSoftCredit);
+        $this->setActiveFieldSoftCreditType($this->_mapperSoftCreditType);
+
+        $this->_contactIdIndex = -1;
+        $this->_totalAmountIndex = -1;
+        $this->_contributionTypeIndex = -1;
+
+        $index = 0;
+        foreach ($this->_mapperKeys as $key) {
+            switch ($key) {
+            case 'contribution_contact_id':
+                $this->_contactIdIndex = $index;
+                break;
+
+            case 'total_amount':
+                $this->_totalAmountIndex = $index;
+                break;
+
+            case 'financial_type':
+                $this->_contributionTypeIndex = $index;
+                break;
+            }
+            $index++;
+        }
+    }
+
+    /**
      * Handle the values in import mode.
      * Based on the legacy solution: https://github.com/civicrm/civicrm-core/blob/5db0bc3c1f54eaca4307f103a73bda596ae914d6/CRM/Contribute/Import/Parser/Contribution.php#L182-L458
      *
