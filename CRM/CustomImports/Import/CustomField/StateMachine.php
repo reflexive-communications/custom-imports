@@ -20,7 +20,7 @@ class CRM_CustomImports_Import_CustomField_StateMachine extends CRM_Core_StateMa
         $this->_pages = [
             'CRM_Contribute_Import_Form_DataSource' => null,
             'CRM_CustomImports_Import_CustomField_Form_ContactMap' => null,
-            'CRM_Contribute_Import_Form_Preview' => null,
+            'CRM_CustomImports_Import_CustomField_Form_Preview' => null,
             'CRM_Contribute_Import_Form_Summary' => null,
         ];
 
