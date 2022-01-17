@@ -44,14 +44,7 @@ class CRM_CustomImports_Import_CustomField_Form_ContactMap extends CRM_Contribut
             }
         }
         // One field has to be given exactly.
-        $contactCustomFields = CRM_CustomImports_Import_Service::mapCustomFieldsToSelectOptions(CRM_CustomImports_Import_Service::customTextFields());
-        $numberOfFields = 0;
-        foreach ($contactCustomFields as $k => $v) {
-            if (in_array($k, $importKeys)) {
-                $numberOfFields += 1;
-            }
-        }
-        if ($numberOfFields !== 1) {
+        if (count(CRM_CustomImports_Import_Service::extractCustomTextFields($importKeys)) !== 1) {
             $errors['_qf_default'] .= ts('One custom field has to be set for contact mapping.');
         }
         return $errors;
