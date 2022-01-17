@@ -167,7 +167,7 @@ class CRM_CustomImports_Import_CustomField_Parser extends CRM_Contribute_Import_
 
         //import contribution record according to select contact type
         if ($onDuplicate == CRM_Import_Parser::DUPLICATE_SKIP &&
-            (!empty($paramValues['contribution_contact_id']) || !empty($paramValues['external_identifier']))
+            (!empty($paramValues['contribution_contact_id']) || count(CRM_CustomImports_Import_Service::extractCustomTextFields(array_keys($paramValues))) === 1)
         ) {
             $paramValues['contact_type'] = $this->_contactType;
         } elseif ($onDuplicate == CRM_Import_Parser::DUPLICATE_UPDATE &&
