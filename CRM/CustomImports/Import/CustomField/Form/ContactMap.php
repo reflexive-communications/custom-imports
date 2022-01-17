@@ -15,39 +15,9 @@ class CRM_CustomImports_Import_CustomField_Form_ContactMap extends CRM_Contribut
             unset($this->_mapperFields[$mapField]);
         }
         // Extend the fieldset with the custom fields.
-        $contactCustomFields = self::customTextFields();
+        $contactCustomFields = CRM_CustomImports_Import_Service::mapCustomFieldsToSelectOptions(CRM_CustomImports_Import_Service::customTextFields());
         $this->_mapperFields = array_merge($this->_mapperFields, $contactCustomFields);
         asort($this->_mapperFields);
-    }
-
-    /*
-     * It returns the custom field options for the contact mapping.
-     * Only thise are relevants where the data type is Strings and
-     * the html type is Text.
-     *
-     * @return array
-     */
-    public static function customTextFields(): array
-    {
-        $fields = CRM_Core_BAO_UFField::getAvailableFields();
-        $contactParamNames = ['Contact', 'Individual'];
-        $paramOptions = [];
-        foreach ($fields as $k => $v) {
-            if (array_search($k, $contactParamNames) === false) {
-                continue;
-            }
-            foreach ($v as $key => $value) {
-                if (!array_key_exists('data_type', $value) || $value['data_type'] !== 'String' || !array_key_exists('html_type', $value) || $value['html_type'] !== 'Text') {
-                    continue;
-                }
-                if ($customFieldId = CRM_Core_BAO_CustomField::getKeyID($key)) {
-                    $customGroupId = CRM_Core_DAO::getFieldValue('CRM_Core_DAO_CustomField', $customFieldId, 'custom_group_id');
-                    $customGroupName = CRM_Core_DAO::getFieldValue('CRM_Core_DAO_CustomGroup', $customGroupId, 'title');
-                    $paramOptions[$key] = $value['title'] . ' :: ' . $customGroupName . ' (match to contact)';
-                }
-            }
-        }
-        return $paramOptions;
     }
 
     /**
@@ -75,7 +45,7 @@ class CRM_CustomImports_Import_CustomField_Form_ContactMap extends CRM_Contribut
             }
         }
         // One field has to be given exactly.
-        $contactCustomFields = self::customTextFields();
+        $contactCustomFields = CRM_CustomImports_Import_Service::mapCustomFieldsToSelectOptions(CRM_CustomImports_Import_Service::customTextFields());
         $numberOfFields = 0;
         foreach ($contactCustomFields as $k => $v) {
             if (in_array($k, $importKeys)) {
