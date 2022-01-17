@@ -10,8 +10,7 @@ class CRM_CustomImports_Import_CustomField_Form_ContactMap extends CRM_Contribut
     {
         parent::preProcess();
         // Unset the current contact map fields.
-        $currentContactMapFields = ['contribution_contact_id', 'email', 'external_identifier'];
-        foreach ($currentContactMapFields as $mapField) {
+        foreach (CRM_CustomImports_Import_Service::ORIGINAL_CONTACT_IDENTIFIERS as $mapField) {
             unset($this->_mapperFields[$mapField]);
         }
         // Extend the fieldset with the custom fields.

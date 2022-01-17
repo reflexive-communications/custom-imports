@@ -2,6 +2,7 @@
 
 class CRM_CustomImports_Import_Service
 {
+    public const ORIGINAL_CONTACT_IDENTIFIERS = ['contribution_contact_id', 'email', 'external_identifier'];
     /*
      * It returns the custom field options for the contact mapping.
      * Only thise are relevants where the data type is Strings and
