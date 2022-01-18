@@ -15,7 +15,7 @@ class CRM_CustomImports_Contribution_CustomField_StateMachineTest extends CRM_Cu
      */
     public function testConstructor():void
     {
-        $sm = new CRM_CustomImports_Contribution_CustomField_StateMachineTest();
+        $sm = new CRM_CustomImports_Contribution_CustomField_StateMachine();
         self::assertSame(CRM_CustomImports_Contribution_CustomField_StateMachine::PAGES, $sm->getPages());
     }
 }
