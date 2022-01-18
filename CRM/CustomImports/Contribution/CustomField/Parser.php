@@ -9,13 +9,14 @@ class CRM_CustomImports_Contribution_CustomField_Parser extends CRM_Contribute_I
      */
     public function init()
     {
-        $fields = CRM_Contribute_BAO_Contribution::importableFields($this->_contactType, FALSE);
+        $fields = CRM_Contribute_BAO_Contribution::importableFields($this->_contactType, false);
 
-        $fields = array_merge($fields,
+        $fields = array_merge(
+            $fields,
             [
                 'soft_credit' => [
                     'title' => ts('Soft Credit'),
-                    'softCredit' => TRUE,
+                    'softCredit' => true,
                     'headerPattern' => '/Soft Credit/i',
                 ],
             ]
@@ -91,11 +92,11 @@ class CRM_CustomImports_Contribution_CustomField_Parser extends CRM_Contribute_I
      */
     public function summary(&$values)
     {
-        $erroneousField = NULL;
+        $erroneousField = null;
         $response = $this->setActiveFieldValues($values, $erroneousField);
 
         $params = &$this->getActiveFieldParams();
-        $errorMessage = NULL;
+        $errorMessage = null;
 
         //for date-Formats
         $errorMessage = implode('; ', $this->formatDateFields($params));
@@ -115,7 +116,7 @@ class CRM_CustomImports_Contribution_CustomField_Parser extends CRM_Contribute_I
         if ($errorMessage) {
             $tempMsg = "Invalid value for field(s) : $errorMessage";
             array_unshift($values, $tempMsg);
-            $errorMessage = NULL;
+            $errorMessage = null;
             return CRM_Import_Parser::ERROR;
         }
 
