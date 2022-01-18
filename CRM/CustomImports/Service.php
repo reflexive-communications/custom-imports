@@ -24,11 +24,11 @@ class CRM_CustomImports_Service
                     continue;
                 }
                 if (CRM_Core_BAO_CustomField::getKeyID($key)) {
-                    $paramOptions[$key] = $value;
+                    $customFields[$key] = $value;
                 }
             }
         }
-        return $paramOptions;
+        return $customFields;
     }
     /*
      * It creates an array from the custom field list that could be used as
