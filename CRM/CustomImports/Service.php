@@ -1,6 +1,6 @@
 <?php
 
-class CRM_CustomImports_Import_Service
+class CRM_CustomImports_Service
 {
     public const ORIGINAL_CONTACT_IDENTIFIERS = ['contribution_contact_id', 'email', 'external_identifier'];
     /*

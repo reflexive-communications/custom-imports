@@ -1,6 +1,6 @@
 <?php
 
-class CRM_CustomImports_Import_Contribution_CustomField_Form_ContactMap extends CRM_Contribute_Import_Form_MapField
+class CRM_CustomImports_Contribution_CustomField_Form_ContactMap extends CRM_Contribute_Import_Form_MapField
 {
     /*
      * It removes the original contact map fields and then extends the list
@@ -10,11 +10,11 @@ class CRM_CustomImports_Import_Contribution_CustomField_Form_ContactMap extends 
     {
         parent::preProcess();
         // Unset the current contact map fields.
-        foreach (CRM_CustomImports_Import_Service::ORIGINAL_CONTACT_IDENTIFIERS as $mapField) {
+        foreach (CRM_CustomImports_Service::ORIGINAL_CONTACT_IDENTIFIERS as $mapField) {
             unset($this->_mapperFields[$mapField]);
         }
         // Extend the fieldset with the custom fields.
-        $contactCustomFields = CRM_CustomImports_Import_Service::mapCustomFieldsToSelectOptions(CRM_CustomImports_Import_Service::customTextFields());
+        $contactCustomFields = CRM_CustomImports_Service::mapCustomFieldsToSelectOptions(CRM_CustomImports_Service::customTextFields());
         $this->_mapperFields = array_merge($this->_mapperFields, $contactCustomFields);
         asort($this->_mapperFields);
     }
@@ -23,7 +23,7 @@ class CRM_CustomImports_Import_Contribution_CustomField_Form_ContactMap extends 
      * Check if required fields (amount and financial type) are present.
      * Exactly one custom field must be set for the contact mapping.
      *
-     * @param CRM_CustomImports_Import_CustomField_Form_ContactMap $self
+     * @param CRM_CustomImports_CustomField_Form_ContactMap $self
      * @param array $importKeys
      * @param array $errors
      *
@@ -44,7 +44,7 @@ class CRM_CustomImports_Import_Contribution_CustomField_Form_ContactMap extends 
             }
         }
         // One field has to be given exactly.
-        if (count(CRM_CustomImports_Import_Service::extractCustomTextFields($importKeys)) !== 1) {
+        if (count(CRM_CustomImports_Service::extractCustomTextFields($importKeys)) !== 1) {
             $errors['_qf_default'] .= ts('One custom field has to be set for contact mapping.');
         }
         return $errors;
@@ -145,7 +145,7 @@ class CRM_CustomImports_Import_Contribution_CustomField_Form_ContactMap extends 
     public function addRules()
     {
         $this->addFormRule([
-            'CRM_CustomImports_Import_Contribution_CustomField_Form_ContactMap',
+            'CRM_CustomImports_Contribution_CustomField_Form_ContactMap',
             'formRule',
         ], $this);
     }

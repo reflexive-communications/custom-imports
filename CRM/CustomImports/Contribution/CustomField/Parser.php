@@ -1,6 +1,6 @@
 <?php
 
-class CRM_CustomImports_Import_Contribution_CustomField_Parser extends CRM_Contribute_Import_Parser_Contribution
+class CRM_CustomImports_Contribution_CustomField_Parser extends CRM_Contribute_Import_Parser_Contribution
 {
     /**
      * The initializer code, called before the processing
@@ -37,11 +37,11 @@ class CRM_CustomImports_Import_Contribution_CustomField_Parser extends CRM_Contr
             $fields = array_merge($fields, $pledgeFields);
         }
         // Unset the original contact map fields.
-        foreach (CRM_CustomImports_Import_Service::ORIGINAL_CONTACT_IDENTIFIERS as $mapField) {
+        foreach (CRM_CustomImports_Service::ORIGINAL_CONTACT_IDENTIFIERS as $mapField) {
             unset($fields[$mapField]);
         }
         // Extend the fieldset with the custom fields.
-        $fields = array_merge($fields, CRM_CustomImports_Import_Service::customTextFields());
+        $fields = array_merge($fields, CRM_CustomImports_Service::customTextFields());
         foreach ($fields as $name => $field) {
             $field['type'] = CRM_Utils_Array::value('type', $field, CRM_Utils_Type::T_INT);
             $field['dataPattern'] = CRM_Utils_Array::value('dataPattern', $field, '//');
@@ -107,7 +107,7 @@ class CRM_CustomImports_Import_Contribution_CustomField_Parser extends CRM_Contr
         // isErrorInCustomData function gethers the custom fields for the contribution
         // and validates that the custom fields in the params are connected to the
         // contributions. If not, it raises an error.
-        $toUnset = CRM_CustomImports_Import_Service::extractCustomTextFields(array_keys($params));
+        $toUnset = CRM_CustomImports_Service::extractCustomTextFields(array_keys($params));
         unset($params[$toUnset[0]]);
         //checking error in custom data
         CRM_Contact_Import_Parser_Contact::isErrorInCustomData($params, $errorMessage);
@@ -167,7 +167,7 @@ class CRM_CustomImports_Import_Contribution_CustomField_Parser extends CRM_Contr
 
         //import contribution record according to select contact type
         if ($onDuplicate == CRM_Import_Parser::DUPLICATE_SKIP &&
-            (!empty($paramValues['contribution_contact_id']) || count(CRM_CustomImports_Import_Service::extractCustomTextFields(array_keys($paramValues))) === 1)
+            (!empty($paramValues['contribution_contact_id']) || count(CRM_CustomImports_Service::extractCustomTextFields(array_keys($paramValues))) === 1)
         ) {
             $paramValues['contact_type'] = $this->_contactType;
         } elseif ($onDuplicate == CRM_Import_Parser::DUPLICATE_UPDATE &&
@@ -295,7 +295,7 @@ class CRM_CustomImports_Import_Contribution_CustomField_Parser extends CRM_Contr
         }
 
         if ($this->_contactIdIndex < 0) {
-            $contactIds = CRM_CustomImports_Import_Service::getContactsBasedOnCustomField($paramValues);
+            $contactIds = CRM_CustomImports_Service::getContactsBasedOnCustomField($paramValues);
             if (count($contactIds) > 1) {
                 array_unshift($values, 'Multiple matching contact records detected for this row. The contribution was not imported');
                 return CRM_Import_Parser::ERROR;
