@@ -1,6 +1,6 @@
 <?php
 
-class CRM_CustomImports_Import_CustomField_Form_ContactMap extends CRM_Contribute_Import_Form_MapField
+class CRM_CustomImports_Import_Contribution_CustomField_Form_ContactMap extends CRM_Contribute_Import_Form_MapField
 {
     /*
      * It removes the original contact map fields and then extends the list
@@ -145,7 +145,7 @@ class CRM_CustomImports_Import_CustomField_Form_ContactMap extends CRM_Contribut
     public function addRules()
     {
         $this->addFormRule([
-            'CRM_CustomImports_Import_CustomField_Form_ContactMap',
+            'CRM_CustomImports_Import_Contribution_CustomField_Form_ContactMap',
             'formRule',
         ], $this);
     }

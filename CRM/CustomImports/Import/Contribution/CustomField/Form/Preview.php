@@ -4,7 +4,7 @@
  * This class previews the uploaded file and returns summary statistics.
  * Based on the legacy solution: https://github.com/civicrm/civicrm-core/blob/5db0bc3c1f54eaca4307f103a73bda596ae914d6/CRM/Contribute/Import/Form/Preview.php
  */
-class CRM_CustomImports_Import_CustomField_Form_Preview extends CRM_Contribute_Import_Form_Preview
+class CRM_CustomImports_Import_Contribution_CustomField_Form_Preview extends CRM_Contribute_Import_Form_Preview
 {
     /**
      * Process the mapped fields and map it into the uploaded file preview the file and extract some summary statistics.
@@ -36,7 +36,7 @@ class CRM_CustomImports_Import_CustomField_Form_Preview extends CRM_Contribute_I
         }
 
         // Replace the original parcer with the one implemented for the custom field contact mapping.
-        $parser = new CRM_CustomImports_Import_CustomField_Parser($mapperKeys, $mapperSoftCredit, $mapperPhoneType, $mapperSoftCreditType);
+        $parser = new CRM_CustomImports_Import_Contribution_CustomField_Parser($mapperKeys, $mapperSoftCredit, $mapperPhoneType, $mapperSoftCreditType);
 
         $mapFields = $this->get('fields');
 

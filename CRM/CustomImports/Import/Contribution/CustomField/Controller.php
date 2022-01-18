@@ -4,7 +4,7 @@
  * State machine controller class.
  * Based on the legacy solution: https://github.com/civicrm/civicrm-core/blob/409ffdf5d67e22566a7e9f6086900cc00b45a08d/CRM/Contribute/Import/Controller.php
  */
-class CRM_CustomImports_Import_CustomField_Controller extends CRM_Core_Controller
+class CRM_CustomImports_Import_Contribution_CustomField_Controller extends CRM_Core_Controller
 {
 
   /**
@@ -20,7 +20,7 @@ class CRM_CustomImports_Import_CustomField_Controller extends CRM_Core_Controlle
 
         set_time_limit(0);
 
-        $this->_stateMachine = new CRM_CustomImports_Import_CustomField_StateMachine($this, $action);
+        $this->_stateMachine = new CRM_CustomImports_Import_Contribution_CustomField_StateMachine($this, $action);
 
         // create and instantiate the pages
         $this->addPages($this->_stateMachine, $action);
