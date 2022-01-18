@@ -6,6 +6,7 @@ use Civi\Test\HookInterface;
 use Civi\Test\TransactionalInterface;
 use Civi\Test\CiviEnvBuilder;
 use Civi\Api4\CustomGroup;
+use Civi\Api4\CustomField;
 
 /**
  * Base testclass to eliminate the code duplication.
@@ -57,7 +58,7 @@ class CRM_CustomImports_HeadlessBase extends \PHPUnit\Framework\TestCase impleme
     protected function createCustomField(string $extends, string $dataType, string $htmlType): array
     {
         $customGroup = CustomGroup::create(false)
-            ->addValue('title', 'Test custom group '.self::$index)
+            ->addValue('title', 'Test custom group v'.self::$index)
             ->addValue('extends', $extends)
             ->addValue('is_active', 1)
             ->addValue('is_public', 1)
