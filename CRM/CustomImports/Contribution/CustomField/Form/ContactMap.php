@@ -29,7 +29,7 @@ class CRM_CustomImports_Contribution_CustomField_Form_ContactMap extends CRM_Con
      *
      * @return array
      */
-    protected static function checkRequiredFields($self, array $importKeys, array $errors): array
+    protected static function customCheckRequiredFields($self, array $importKeys, array $errors): array
     {
         $requiredFields = [
             'total_amount' => ts('Total Amount'),
@@ -92,7 +92,7 @@ class CRM_CustomImports_Contribution_CustomField_Form_ContactMap extends CRM_Con
                     }
                 }
             }
-            $errors = self::checkRequiredFields($self, $importKeys, $errors);
+            $errors = self::customCheckRequiredFields($self, $importKeys, $errors);
             //at least one field should be mapped during update.
             if ($self->_onDuplicate == CRM_Import_Parser::DUPLICATE_UPDATE) {
                 $atleastOne = false;
