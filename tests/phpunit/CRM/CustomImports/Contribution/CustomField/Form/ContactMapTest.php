@@ -15,6 +15,9 @@ class CRM_CustomImports_Contribution_CustomField_Form_ContactMapTest extends CRM
     public function testPreProcess()
     {
         $form = new CRM_CustomImports_Contribution_CustomField_Form_ContactMap();
+        // The form controller seems to be null from the Form class.
+        $form->controller = new CRM_CustomImports_Contribution_CustomField_Controller();
+        $form->set('fields', []);
         self::assertEmpty($form->preProcess(), 'PreProcess supposed to be empty.');
     }
 
@@ -24,9 +27,12 @@ class CRM_CustomImports_Contribution_CustomField_Form_ContactMapTest extends CRM
     public function testFormRule()
     {
         $form = new CRM_CustomImports_Contribution_CustomField_Form_ContactMap();
-        $fields = [];
+        $fields = ['mapper' => []];
         $files = [];
-        self::assertArray(CRM_CustomImports_Contribution_CustomField_Form_ContactMap::formRule($fields, $files, $form), 'It has to return error array');
+        $form->controller = new CRM_CustomImports_Contribution_CustomField_Controller();
+        $form->set('fields', []);
+        self::assertEmpty($form->preProcess(), 'PreProcess supposed to be empty.');
+        self::assertIsArray(CRM_CustomImports_Contribution_CustomField_Form_ContactMap::formRule($fields, $files, $form), 'It has to return error array');
     }
 
     /**
@@ -44,6 +50,9 @@ class CRM_CustomImports_Contribution_CustomField_Form_ContactMapTest extends CRM
     public function testBuildQuickForm()
     {
         $form = new CRM_CustomImports_Contribution_CustomField_Form_ContactMap();
+        $form->controller = new CRM_CustomImports_Contribution_CustomField_Controller();
+        $form->controller->set('fields', []);
+        self::assertEmpty($form->preProcess(), 'PreProcess supposed to be empty.');
         self::assertEmpty($form->buildQuickForm(), 'BuildQuickForm supposed to be empty.');
     }
 }

@@ -44,6 +44,31 @@ class CRM_CustomImports_HeadlessBase extends \PHPUnit\Framework\TestCase impleme
     {
         parent::tearDown();
     }
+    /**
+     * Apply a forced rebuild of DB, thus
+     * create a clean DB before running tests
+     *
+     * @throws \CRM_Extension_Exception_ParseException
+     */
+    public static function setUpBeforeClass(): void
+    {
+        // Resets DB and install depended extension
+        \Civi\Test::headless()
+            ->installMe(__DIR__)
+            ->apply(true);
+    }
+
+    /**
+     * Create a clean DB after running tests
+     *
+     * @throws CRM_Extension_Exception_ParseException
+     */
+    public static function tearDownAfterClass(): void
+    {
+        \Civi\Test::headless()
+            ->uninstallMe(__DIR__)
+            ->apply(true);
+    }
 
     /**
      * Helper function for creating a brand new custom group and custom field
