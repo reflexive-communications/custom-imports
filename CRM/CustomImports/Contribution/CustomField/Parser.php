@@ -150,7 +150,13 @@ class CRM_CustomImports_Contribution_CustomField_Parser extends CRM_Contribute_I
         if (isset($params['total_amount']) && $params['total_amount'] == 0) {
             $params['total_amount'] = '0.00';
         }
+        // Skip the contact custom fields from this format, due to the same
+        // contact custom field issue.
+        $toUnset = CRM_CustomImports_Service::extractCustomTextFields(array_keys($params));
+        $backup = $params[$toUnset[0]];
+        unset($params[$toUnset[0]]);
         $this->formatInput($params, $formatted);
+        $params[$toUnset[0]] = $backup;
 
         static $indieFields = null;
         if ($indieFields == null) {
@@ -185,7 +191,12 @@ class CRM_CustomImports_Contribution_CustomField_Parser extends CRM_Contribute_I
         if (!empty($paramValues['pledge_payment'])) {
             $paramValues['onDuplicate'] = $onDuplicate;
         }
+        // Skip the contact custom fields from this format, due to the same
+        // contact custom field issue.
+        $backup = $paramValues[$toUnset[0]];
+        unset($paramValues[$toUnset[0]]);
         $formatError = $this->deprecatedFormatParams($paramValues, $formatted, true, $onDuplicate);
+        $paramValues[$toUnset[0]] = $backup;
 
         if ($formatError) {
             array_unshift($values, $formatError['error_message']);
