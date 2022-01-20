@@ -2,7 +2,7 @@
 
 This extension provides custom importer application.
 
-- Constribution import where the contact mapping is based on contact custom field.
+- Constribution import where the contact mapping is based on contact custom field. If you want to execute this importer, navigate to the `Contributions > Custom Importers > Custom Field Contact Mapping` menu. The data mapping screen provides the custom fields as options for contact mapping instead of the legacy contact mapping options.
 
 The extension is licensed under [AGPL-3.0](LICENSE.txt).
 
