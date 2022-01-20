@@ -8,6 +8,13 @@
   <filter>
     <whitelist>
       <directory suffix=".php">./</directory>
+      <exclude>
+        <!-- Skip the test directory -->
+        <directory>./tests</directory>
+        <!-- Skip the generated files -->
+        <file>./custom_imports.php</file>
+        <file>./custom_imports.civix.php</file>
+      </exclude>
     </whitelist>
   </filter>
   <listeners>
