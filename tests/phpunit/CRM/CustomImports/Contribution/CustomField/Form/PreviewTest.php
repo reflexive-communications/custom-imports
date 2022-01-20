@@ -80,21 +80,21 @@ class CRM_CustomImports_Contribution_CustomField_Form_PreviewTest extends CRM_Cu
         $numberOfContributionDuplicationA = civicrm_api3('Contribution', 'getcount', [
             'contact_id' => $contactWithDuplicationA['values'][0]['id'],
         ]);
-        self::assertSame($originalNumberOfContributionDuplicationA,$numberOfContributionDuplicationA);
+        self::assertSame($originalNumberOfContributionDuplicationA, $numberOfContributionDuplicationA);
         // duplicationB has to be the same.
         $numberOfContributionDuplicationB = civicrm_api3('Contribution', 'getcount', [
             'contact_id' => $contactWithDuplicationB['values'][0]['id'],
         ]);
-        self::assertSame($originalNumberOfContributionDuplicationB,$numberOfContributionDuplicationB);
+        self::assertSame($originalNumberOfContributionDuplicationB, $numberOfContributionDuplicationB);
         // wrong type has to be the same.
         $numberOfContributiontWrongType = civicrm_api3('Contribution', 'getcount', [
             'contact_id' => $contactWrongType['values'][0]['id'],
         ]);
-        self::assertSame($originalNumberOfContributiontWrongType,$numberOfContributiontWrongType);
+        self::assertSame($originalNumberOfContributiontWrongType, $numberOfContributiontWrongType);
         // contribution has to be increased.
         $numberOfContributiontContribution = civicrm_api3('Contribution', 'getcount', [
             'contact_id' => $contactWithContribution['values'][0]['id'],
         ]);
-        self::assertSame($originalNumberOfContributiontContribution+1,$numberOfContributiontContribution);
+        self::assertSame($originalNumberOfContributiontContribution+1, $numberOfContributiontContribution);
     }
 }

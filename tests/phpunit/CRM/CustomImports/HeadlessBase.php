@@ -15,7 +15,6 @@ use Civi\Api4\CustomField;
  */
 class CRM_CustomImports_HeadlessBase extends \PHPUnit\Framework\TestCase implements HeadlessInterface, HookInterface, TransactionalInterface
 {
-
     protected static $index = 1;
     /**
      * Setup used when HeadlessInterface is implemented.
