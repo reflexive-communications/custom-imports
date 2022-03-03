@@ -173,19 +173,9 @@ function custom_imports_civicrm_themes(&$themes)
  */
 function custom_imports_civicrm_navigationMenu(&$menu)
 {
-    // Add the parent menu first.
     _custom_imports_civix_insert_navigation_menu($menu, 'Contributions', [
-        'label' => E::ts('Custom Importers'),
-        'name' => 'custom_importers',
-        'url' => null,
-        'permission' => 'access CiviContribute,edit contributions',
-        'operator' => 'and',
-        'separator' => 0,
-    ]);
-    // the state machines
-    _custom_imports_civix_insert_navigation_menu($menu, 'Contributions/custom_importers', [
-        'label' => E::ts('Custom Field Contact Mapping'),
-        'name' => 'custom_field_based',
+        'label' => E::ts('Import Contributions (Bank Account)'),
+        'name' => 'import_contribution_bank_account',
         'url' => 'civicrm/contribute/custom-field-import',
         'permission' => 'access CiviContribute,edit contributions',
         'operator' => 'and',
