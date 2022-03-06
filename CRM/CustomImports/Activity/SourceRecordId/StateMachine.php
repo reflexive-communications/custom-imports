@@ -9,7 +9,7 @@ class CRM_CustomImports_Activity_SourceRecordId_StateMachine extends CRM_Core_St
     public const PAGES = [
         'CRM_Activity_Import_Form_DataSource' => null,
         'CRM_CustomImports_Activity_SourceRecordId_Form_MapFields' => null,
-        'CRM_Activity_Import_Form_Preview' => null,
+        'CRM_CustomImports_Activity_SourceRecordId_Form_Preview' => null,
         'CRM_Activity_Import_Form_Summary' => null,
     ];
 
