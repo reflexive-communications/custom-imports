@@ -54,7 +54,7 @@ class CRM_CustomImports_Activity_SourceRecordId_Form_PreviewTest extends CRM_Cus
         $container =& $form->controller->container();
         $container['values']['MapFields']['mapper'] = [
             0 => [0 => 'email'],
-            1 => [0 => 'activity_date'],
+            1 => [0 => 'activity_date_time'],
             2 => [0 => 'activity_type_id'],
             3 => [0 => 'doNotImport'],
             4 => [0 => 'subject'],
@@ -62,8 +62,10 @@ class CRM_CustomImports_Activity_SourceRecordId_Form_PreviewTest extends CRM_Cus
         ];
         $container['values']['DataSource']['uploadFile'] = ['name' => __DIR__.'/test.csv'];
         $container['values']['DataSource']['fieldSeparator'] = ',';
+        $container['values']['DataSource']['skipColumnHeader'] = '1';
         $form->set('contactType', CRM_Import_Parser::CONTACT_INDIVIDUAL);
         self::assertEmpty($form->preProcess(), 'PreProcess supposed to be empty.');
+        CRM_Core_Session::singleton()->set('dateTypes', 1);
         self::assertEmpty($form->postProcess(), 'PostProcess supposed to be empty.');
         $newNumberOfActivityContactNotImported = civicrm_api3('ActivityContact', 'getcount', [
             'contact_id' => $contactNotImported['values'][0]['id'],
