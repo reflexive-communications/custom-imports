@@ -2,7 +2,7 @@
 <extension key="custom-imports" type="module">
   <file>custom_imports</file>
   <name>Custom Importer Applications</name>
-  <description>This extension provides custom importer application.</description>
+  <description>This extension provides custom importer applications.</description>
   <license>AGPL-3.0</license>
   <maintainer>
     <author>akosgarai</author>
@@ -14,13 +14,13 @@
     <url desc="Support">https://github.com/reflexive-communications/custom-imports/issues</url>
     <url desc="Licensing">http://www.gnu.org/licenses/agpl-3.0.html</url>
   </urls>
-  <releaseDate>2022-03-03</releaseDate>
-  <version>1.0.1</version>
+  <releaseDate>2022-03-08</releaseDate>
+  <version>1.1.0</version>
   <develStage>stable</develStage>
   <compatibility>
     <ver>5.0</ver>
   </compatibility>
-  <comments>This extension provides custom importer application.</comments>
+  <comments>This extension provides custom importer applications.</comments>
   <classloader>
     <psr4 prefix="Civi\" path="Civi"/>
   </classloader>
