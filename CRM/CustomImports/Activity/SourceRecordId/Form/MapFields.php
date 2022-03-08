@@ -1,5 +1,9 @@
 <?php
 
+/*
+ * Data mapper class.
+ * Based on the legacy solution: https://github.com/civicrm/civicrm-core/blob/master/CRM/Activity/Import/Form/MapField.php
+ */
 class CRM_CustomImports_Activity_SourceRecordId_Form_MapFields extends CRM_Activity_Import_Form_MapField
 {
     /*

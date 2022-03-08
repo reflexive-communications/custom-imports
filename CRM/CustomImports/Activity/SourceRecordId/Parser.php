@@ -3,7 +3,9 @@
 class CRM_CustomImports_Activity_SourceRecordId_Parser extends CRM_Activity_Import_Parser_Activity
 {
     /**
-     * The initializer code, called before the processing.
+     * The initializer code, called before the processing
+     * Based on the legacy solution:https://github.com/civicrm/civicrm-core/blob/master/CRM/Activity/Import/Parser/Activity.php
+     * The customization is necessary due to the fields are set here.
      */
     public function init()
     {
