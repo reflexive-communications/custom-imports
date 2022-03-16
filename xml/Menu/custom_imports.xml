@@ -7,4 +7,11 @@
     <access_arguments>access CiviContribute,edit contributions</access_arguments>
     <page_type>1</page_type>
   </item>
+  <item>
+    <path>civicrm/activity/source-record-id-import</path>
+    <page_callback>CRM_CustomImports_Activity_SourceRecordId_Controller</page_callback>
+    <title>Import Activities</title>
+    <access_arguments>import contacts,access CiviCRM</access_arguments>
+    <page_type>1</page_type>
+  </item>
 </menu>

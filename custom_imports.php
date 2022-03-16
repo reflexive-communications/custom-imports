@@ -181,5 +181,13 @@ function custom_imports_civicrm_navigationMenu(&$menu)
         'operator' => 'and',
         'separator' => 0,
     ]);
+    _custom_imports_civix_insert_navigation_menu($menu, 'Contacts', [
+        'label' => E::ts('Import Activities With Source Record Id'),
+        'name' => 'import_activity_source_record_id',
+        'url' => 'civicrm/activity/source-record-id-import',
+        'permission' => 'import contacts,access CiviCRM',
+        'operator' => 'and',
+        'separator' => 0,
+    ]);
     _custom_imports_civix_navigationMenu($menu);
 }
