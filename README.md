@@ -1,5 +1,14 @@
 # custom-imports
 
+**Extension Archived!**
+
+**Importers moved to separate extensions:**
+
+- [import-bank-account](https://github.com/reflexive-communications/import-bank-account)
+- [import-source-record-id](https://github.com/reflexive-communications/import-source-record-id)
+
+## Overview
+
 This extension provides custom importer applications.
 
 - Constribution import where the contact mapping is based on contact custom field. If you want to execute this importer,
